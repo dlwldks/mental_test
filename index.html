@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>제정신 검증 테스트</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="container">
+    <h1>🧠 제정신 검증 테스트</h1>
+
+    <div id="intro" class="card">
+      <div class="input-group">
+        <label for="gender">성별</label>
+        <select id="gender">
+          <option value="male">남성</option>
+          <option value="female">여성</option>
+          <option value="other">기타</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label for="age">나이</label>
+        <input type="number" id="age" min="1" max="120" placeholder="나이를 입력하세요" />
+      </div>
+      <button class="main-btn" onclick="startTest()">테스트 시작</button>
+    </div>
+
+    <div id="test" class="card hidden">
+      <div id="progress-bar"><div id="progress"></div></div>
+      <form id="question-form"></form>
+      <button class="main-btn" onclick="nextPage()">다음</button>
+    </div>
+
+    <div id="result" class="card hidden">
+      <h2 id="result-title"></h2>
+      <div id="traffic-light" class="light"></div>
+      <button class="main-btn" onclick="showStats()">전체 통계 보기</button>
+    </div>
+
+    <div id="stats" class="card hidden">
+      <h2>전체 통계</h2>
+      <canvas id="ageChart" width="400" height="200"></canvas>
+      <canvas id="genderChart" width="400" height="200"></canvas>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>
