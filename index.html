@@ -40,13 +40,31 @@
 
     <div id="stats" class="card hidden">
       <h2>전체 통계</h2>
-      <canvas id="ageChart" width="400" height="200"></canvas>
-      <canvas id="genderChart" width="400" height="200"></canvas>
+      <div id="current-user-info"></div>
+      <div style="margin:15px 0;">
+        <button class="age-btn" onclick="drawAgePie('all')">전체</button>
+        <button class="age-btn" onclick="drawAgePie('10')">10대</button>
+        <button class="age-btn" onclick="drawAgePie('20')">20대</button>
+        <button class="age-btn" onclick="drawAgePie('30')">30대</button>
+        <button class="age-btn" onclick="drawAgePie('40')">40대</button>
+        <button class="age-btn" onclick="drawAgePie('50')">50대 이상</button>
+      </div>
+      <div class="chart-container">
+        <canvas id="agePie" width="300" height="300"></canvas>
+        <div style="display:flex;flex-direction:row;justify-content:space-between;width:100%;">
+          <div style="width:48%;position:relative;">
+            <canvas id="genderChart" width="300" height="300"></canvas>
+          </div>
+          <div style="width:48%;position:relative;">
+            <canvas id="levelChart" width="300" height="300"></canvas>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
   <script src="data.js"></script>
-  <script src="script.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

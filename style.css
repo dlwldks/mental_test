@@ -137,6 +137,84 @@ h1 {
   margin-bottom: 18px;
 }
 
+.chart-container {
+  margin: 20px 0;
+  width: 100%;
+  position: relative;
+}
+
+#age-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 15px 0;
+}
+
+.age-btn {
+  background-color: #e1bee7;
+  color: #4a148c;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.age-btn:hover {
+  background-color: #ba68c8;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.age-btn.active {
+  background-color: #7e57c2;
+  color: white;
+  font-weight: bold;
+}
+
+.user-bar {
+  position: absolute;
+  background: #fffde7;
+  border: 2px solid #7e57c2;
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-weight: bold;
+  color: #4a148c;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.user-box {
+  background-color: #f3e5f5;
+  border: 2px solid #7e57c2;
+  border-radius: 8px;
+  padding: 15px;
+  margin: 10px 0;
+  text-align: left;
+  box-shadow: 0 2px 8px rgba(80, 80, 120, 0.10);
+}
+
+.user-box h3 {
+  color: #4a148c;
+  margin-top: 0;
+}
+
+.level-정상 {
+  color: #26c6da;
+  font-weight: bold;
+}
+
+.level-위험 {
+  color: #ffb300;
+  font-weight: bold;
+}
+
+.level-비정상 {
+  color: #ef5350;
+  font-weight: bold;
+}
+
 @media (max-width: 500px) {
   #container {
     max-width: 98vw;
