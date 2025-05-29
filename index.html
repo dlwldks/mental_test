@@ -10,6 +10,7 @@
   <div id="container">
     <h1>🧠 제정신 검증 테스트</h1>
 
+    <!-- 초기 입력 폼 -->
     <div id="intro" class="card">
       <div class="input-group">
         <label for="gender">성별</label>
@@ -23,24 +24,32 @@
         <label for="age">나이</label>
         <input type="number" id="age" min="1" max="120" placeholder="나이를 입력하세요" />
       </div>
+      <div class="input-group">
+        <label for="job">직업</label>
+        <input type="text" id="job" placeholder="직업을 입력하세요" />
+      </div>
       <button class="main-btn" onclick="startTest()">테스트 시작</button>
     </div>
 
+    <!-- 질문 페이지 -->
     <div id="test" class="card hidden">
       <div id="progress-bar"><div id="progress"></div></div>
       <form id="question-form"></form>
       <button class="main-btn" onclick="nextPage()">다음</button>
     </div>
 
+    <!-- 결과 페이지 -->
     <div id="result" class="card hidden">
       <h2 id="result-title"></h2>
       <div id="traffic-light" class="light"></div>
       <button class="main-btn" onclick="showStats()">전체 통계 보기</button>
     </div>
 
+    <!-- 통계 페이지 -->
     <div id="stats" class="card hidden">
       <h2>전체 통계</h2>
       <div id="current-user-info"></div>
+      <!-- 연령대별 버튼 -->
       <div style="margin:15px 0;">
         <button class="age-btn" onclick="drawAgePie('all')">전체</button>
         <button class="age-btn" onclick="drawAgePie('10')">10대</button>
@@ -49,6 +58,7 @@
         <button class="age-btn" onclick="drawAgePie('40')">40대</button>
         <button class="age-btn" onclick="drawAgePie('50')">50대 이상</button>
       </div>
+      <!-- 그래프 컨테이너 -->
       <div class="chart-container">
         <canvas id="agePie" width="300" height="300"></canvas>
         <div style="display:flex;flex-direction:row;justify-content:space-between;width:100%;">
@@ -59,7 +69,22 @@
             <canvas id="levelChart" width="300" height="300"></canvas>
           </div>
         </div>
+        <!-- 직업 분포 원형 그래프 -->
+        <div style="margin-top:20px;">
+          <canvas id="jobPie" width="300" height="300"></canvas>
+        </div>
       </div>
+      <!-- 상세 비교 버튼 -->
+      <button class="main-btn" onclick="showDetailedStats()">세부 비교 분석</button>
+    </div>
+
+    <!-- 상세 비교 그래프 -->
+    <div id="comparison" class="card hidden">
+      <h2>항목별 비교 분석</h2>
+      <div class="chart-container">
+        <canvas id="comparisonChart"></canvas>
+      </div>
+      <button class="main-btn" onclick="showStats()">뒤로 가기</button>
     </div>
   </div>
 
