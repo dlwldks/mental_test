@@ -4,7 +4,7 @@ let gender = "";
 let age = 0;
 let job = "";
 
-let agePieChart, genderChart, levelChart, jobPieChart, comparisonChart;
+let agePieChart, genderChart, levelChart, jobPieChart, comparisonChart, summaryChart;
 
 function startTest() {
   gender = document.getElementById('gender').value;
@@ -58,13 +58,12 @@ function nextPage() {
     return;
   }
 
-  // 현재 페이지 문항 인덱스 범위
   const startIdx = currentPage * 5;
   for (let i = 0; i < radios.length; i++) {
     const questionIndex = startIdx + i;
     let value = parseInt(radios[i].value);
     if (reverseIndexes.includes(questionIndex)) {
-      value = 6 - value; // 반전
+      value = 6 - value;
     }
     answers[questionIndex] = value;
   }
@@ -77,37 +76,61 @@ function nextPage() {
   }
 }
 
+function drawSummaryChart(resultScores) {
+  const container = document.getElementById('result');
+  const canvas = document.createElement('canvas');
+  canvas.id = 'summaryChart';
+  container.appendChild(canvas);
+
+  const ctx = canvas.getContext('2d');
+  summaryChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['정서적 안정', '공감/사회성', '자기 통제', '자기 인식'],
+      datasets: [{
+        label: '점수 (%)',
+        data: resultScores.map(x => Math.round((x / 5) * 100)),
+        backgroundColor: 'rgba(75, 192, 192, 0.7)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      scales: {
+        x: {
+          max: 100,
+          ticks: {
+            callback: val => `${val}%`
+          }
+        }
+      },
+      plugins: {
+        legend: { display: false },
+        title: {
+          display: true,
+          text: '항목별 정신 건강 백분율'
+        }
+      }
+    }
+  });
+}
+
 function showResult() {
   document.getElementById('test').classList.add('hidden');
   document.getElementById('result').classList.remove('hidden');
 
   const avg = answers.reduce((a, b) => a + b, 0) / answers.length;
   const resultTitle = document.getElementById('result-title');
-  const light = document.getElementById('traffic-light');
-
+  
   if (avg >= 4.5) {
     resultTitle.textContent = "당신은 제정신입니다.";
-    light.className = "light green";
   } else if (avg >= 3.0) {
     resultTitle.textContent = "위험 수준입니다.";
-    light.className = "light orange";
   } else {
     resultTitle.textContent = "당신은 제정신이 아닙니다.";
-    light.className = "light red";
   }
 
-  saveToStorage();
-}
-
-function saveToStorage() {
-  const stats = JSON.parse(localStorage.getItem("stats") || "[]");
-  const avg = answers.reduce((a, b) => a + b, 0) / answers.length;
-  let level = "";
-  if (avg >= 4.5) level = "정상";
-  else if (avg >= 3.0) level = "위험";
-  else level = "비정상";
-
-  // 항목별 점수 평균 계산
   const categories = [
     answers.slice(0,10),
     answers.slice(10,20),
@@ -116,9 +139,23 @@ function saveToStorage() {
   ];
   const scores = categories.map(arr => arr.reduce((a,b) => a + b, 0)/arr.length);
 
+  drawSummaryChart(scores);
+  saveToStorage(scores);
+}
+
+function saveToStorage(scores) {
+  const stats = JSON.parse(localStorage.getItem("stats") || "[]");
+  const avg = answers.reduce((a, b) => a + b, 0) / answers.length;
+  let level = "";
+  if (avg >= 4.5) level = "정상";
+  else if (avg >= 3.0) level = "위험";
+  else level = "비정상";
+
   stats.push({ gender, age, job, level, scores });
   localStorage.setItem("stats", JSON.stringify(stats));
 }
+
+// 나머지 함수(showStats, drawAgePie, showDetailedStats 등)는 기존 코드와 동일하게 유지
 
 function showStats() {
   document.getElementById('result').classList.add('hidden');
